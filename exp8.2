@@ -1,0 +1,29 @@
+clc;
+clear;
+close all;
+% Transmission Line Length
+z = linspace(0,1,1000);
+% Incident Wave Amplitude
+Vi = 1;
+% Reflection Coefficient
+Gamma = 0.4;
+% Phase Constant
+beta = 2*pi*5;
+% Standing Wave Pattern
+V = abs(Vi*(1 + Gamma*exp(-1j*2*beta*z)));
+% Maximum and Minimum Voltage
+Vmax = max(V);
+Vmin = min(V);
+% SWR Calculation
+
+SWR = Vmax/Vmin;
+fprintf('Maximum Voltage = %.3f\n',Vmax);
+fprintf('Minimum Voltage = %.3f\n',Vmin);
+fprintf('SWR = %.3f\n',SWR);
+% Plot
+figure;
+plot(z,V,'LineWidth',2);
+grid on;
+xlabel('Distance along Transmission Line (m)');
+ylabel('Voltage Amplitude');
+title('Standing Wave Pattern');

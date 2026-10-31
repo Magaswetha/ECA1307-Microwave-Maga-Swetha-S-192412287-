@@ -1,0 +1,55 @@
+clc;
+clear;
+close all;
+
+% Parameters
+f = 10e9;          % Frequency = 10 GHz
+c = 3e8;           % Speed of light
+lambda = c/f;      % Wavelength
+a = 6*lambda;      % Aperture width
+
+% Angular Range
+theta = -90:0.1:90;
+theta_rad = deg2rad(theta);
+
+% Wave Number
+k = 2*pi/lambda;
+
+% H-Plane Radiation Pattern
+u = (k*a/2).*sin(theta_rad);
+E = ones(size(u));
+
+for i = 1:length(u)
+    if abs(u(i)) > 1e-10
+        E(i) = sin(u(i))/u(i);
+    end
+end
+
+% Normalize
+E_norm = abs(E)/max(abs(E));
+
+% Convert to dB
+E_dB = 20*log10(E_norm);
+E_dB(E_dB < -40) = -40;
+
+% Cartesian Plot
+figure;
+plot(theta, E_norm, 'LineWidth', 2);
+grid on;
+xlabel('Angle (degrees)');
+ylabel('Normalized Field');
+title('H-Plane Radiation Pattern of Horn Antenna');
+
+% Polar Plot
+figure;
+polarplot(theta_rad, E_norm, 'LineWidth', 2);
+title('Polar Radiation Pattern - H Plane');
+
+% dB Plot
+figure;
+plot(theta, E_dB, 'r', 'LineWidth', 2);
+grid on;
+xlabel('Angle (degrees)');
+ylabel('Magnitude (dB)');
+title('H-Plane Radiation Pattern (dB)');
+ylim([-40 0]);

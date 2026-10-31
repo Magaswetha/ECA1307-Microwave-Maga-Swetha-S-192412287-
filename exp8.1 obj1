@@ -1,0 +1,22 @@
+clc;
+clear;
+close all;
+% Frequency Range (GHz)
+f = 8:0.01:10;
+% Simulated Resonance Curve
+P = exp(-((f-9).^2)/0.02);
+% Find Resonance Frequency
+[maxPower,index] = max(P);
+resonantFrequency = f(index);
+fprintf('Resonant Frequency = %.2f GHz\n',resonantFrequency);
+% Plot
+figure;
+plot(f,P,'LineWidth',2);
+grid on;
+xlabel('Frequency (GHz)');
+ylabel('Normalized Output Power');
+title('Resonance Characteristics of Reflex Klystron');
+hold on;
+plot(resonantFrequency,maxPower,'ro','MarkerSize',10,...
+'MarkerFaceColor','r');
+legend('Resonance Curve','Operating Frequency');

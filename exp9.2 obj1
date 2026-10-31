@@ -1,0 +1,29 @@
+clc;
+clear;
+close all;
+% Angular Range
+theta = linspace(-pi/2,pi/2,1000);
+% Approximate Horn Antenna Radiation Pattern
+E = (cos(theta)).^4;
+% Normalize Pattern
+E = abs(E);
+E_norm = E/max(E);
+% Polar Plot
+figure;
+polarplot(theta,E_norm,'LineWidth',2);
+title('Radiation Pattern of Microwave Horn Antenna');
+EX NO:
+9.2
+
+Radiation Pattern Simulation of Microwave Horn Antenna using MATLAB
+
+DATE:
+
+grid on;
+% Cartesian Plot
+figure;
+plot(rad2deg(theta),E_norm,'LineWidth',2);
+xlabel('Angle (Degrees)');
+ylabel('Normalized Radiation Intensity');
+title('Horn Antenna Radiation Pattern');
+grid on;

@@ -1,0 +1,21 @@
+clc;
+clear;
+close all;
+% Angular Range
+theta = linspace(0,2*pi,1000);
+% Radiation Pattern of Half-Wave Dipole
+E = abs(sin(theta));
+% Normalization
+E_norm = E/max(E);
+% Polar Plot
+figure;
+polarplot(theta,E_norm,'LineWidth',2);
+title('Radiation Pattern of Half-Wave Dipole Antenna');
+grid on;
+% Cartesian Plot
+figure;
+plot(rad2deg(theta),E_norm,'LineWidth',2);
+grid on;
+xlabel('Angle (Degrees)');
+ylabel('Normalized Radiation Intensity');
+title('Dipole Antenna Radiation Pattern');

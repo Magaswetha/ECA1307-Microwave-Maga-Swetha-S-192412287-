@@ -1,0 +1,36 @@
+clc;
+clear;
+close all;
+
+% Sampling Frequency
+Fs = 10000;
+
+% Filter Order
+N = 4;
+
+% Cutoff Frequencies
+Fc = [1000 2000 3000];
+
+for k = 1:length(Fc)
+
+    % Normalized Cutoff Frequency
+    Wn = Fc(k)/(Fs/2);
+
+    % Design Low Pass Butterworth Filter
+    [b,a] = butter(N,Wn,'low');
+
+    % Frequency Response
+    [H,f] = freqz(b,a,1024,Fs);
+
+    % Plot Magnitude Response
+    figure;
+    plot(f,20*log10(abs(H)),'LineWidth',2);
+    grid on;
+
+    xlabel('Frequency (Hz)');
+    ylabel('Magnitude (dB)');
+
+    title(['Magnitude Response of LPF (Fc = ', ...
+        num2str(Fc(k)), ' Hz)']);
+
+end

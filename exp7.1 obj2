@@ -1,1 +1,18 @@
-
+clc;
+clear;
+close all;
+Fs = 10000; % Sampling Frequency
+N = 4; % Filter Order
+Fc = [1000 2000 3000]; % Cutoff Frequencies
+for k = 1:length(Fc)
+Wn = Fc(k)/(Fs/2);
+[b,a] = butter(N,Wn,'low');
+[H,f] = freqz(b,a,1024,Fs);
+Gain_dB = 20*log10(abs(H));
+figure;
+plot(f,Gain_dB,'LineWidth',2);
+grid on;
+xlabel('Frequency (Hz)');
+ylabel('Gain (dB)');
+title(['Frequency Response of LPF (Fc = ',num2str(Fc(k)),' Hz)']);
+end
